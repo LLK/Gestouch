@@ -45,14 +45,14 @@ package org.gestouch.core
 		 */
 		public static function get touchesManager():TouchesManager
 		{
-			return _touchesManager ||= new TouchesManager(gesturesManager);
+			return _touchesManager ? _touchesManager : _touchesManager = new TouchesManager(gesturesManager);
 		}
 		
 		
 		private static var _gesturesManager:GesturesManager;
 		public static function get gesturesManager():GesturesManager
 		{
-			return _gesturesManager ||= new GesturesManager();
+			return _gesturesManager ? _gesturesManager : _gesturesManager = new GesturesManager();
 		}
 		
 		
@@ -106,6 +106,12 @@ package org.gestouch.core
 		
 		gestouch_internal static function getDisplayListAdapter(object:Object):IDisplayListAdapter
 		{
+			// Try to find use the object's final class
+			var dla:IDisplayListAdapter = _displayListAdaptersMap[object.constructor as Class];
+			if (dla) {
+				return dla;
+			}
+
 			for (var key:Object in _displayListAdaptersMap)
 			{
 				var targetClass:Class = key as Class;
