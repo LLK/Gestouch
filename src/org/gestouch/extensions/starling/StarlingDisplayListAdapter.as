@@ -1,14 +1,11 @@
 package org.gestouch.extensions.starling
 {
-	import starling.display.DisplayObject;
-	import starling.display.DisplayObjectContainer;
+import flash.utils.Dictionary;
 
-	import org.gestouch.core.IDisplayListAdapter;
+import org.gestouch.core.IDisplayListAdapter;
+import org.gestouch.core.Touch;
 
-	import flash.utils.Dictionary;
-
-
-	/**
+/**
 	 * @author Pavel fljot
 	 */
 	final public class StarlingDisplayListAdapter implements IDisplayListAdapter
@@ -44,11 +41,11 @@ package org.gestouch.extensions.starling
 		}
 		
 		
-		public function getHierarchy(genericTarget:Object):Vector.<Object>
+		public function getHierarchy(target:Object, touch:Touch):Vector.<Object>
 		{
 			var list:Vector.<Object> = new Vector.<Object>();
 			var i:uint = 0;
-			var target:DisplayObject = genericTarget as DisplayObject;
+			var target:DisplayObject = target as DisplayObject;
 			while (target)
 			{
 				list[i] = target;

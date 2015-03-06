@@ -217,7 +217,7 @@ package org.gestouch.core
 			{
 				throw new Error("Display list adapter not found for target of type '" + getQualifiedClassName(target) + "'.");
 			}
-			const hierarchy:Vector.<Object> = displayListAdapter.getHierarchy(target);
+			const hierarchy:Vector.<Object> = displayListAdapter.getHierarchy(target, touch);
 			const hierarchyLength:uint = hierarchy.length;
 			if (hierarchyLength == 0)
 			{

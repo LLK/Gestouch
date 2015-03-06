@@ -1,14 +1,14 @@
 package org.gestouch.extensions.native
 {
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.Stage;
-	import flash.geom.Point;
-	import flash.utils.Dictionary;
-	import org.gestouch.core.IDisplayListAdapter;
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
+import flash.display.Stage;
+import flash.utils.Dictionary;
 
+import org.gestouch.core.IDisplayListAdapter;
+import org.gestouch.core.Touch;
 
-	/**
+/**
 	 * @author Pavel fljot
 	 */
 	final public class NativeDisplayListAdapter implements IDisplayListAdapter
@@ -74,11 +74,11 @@ package org.gestouch.extensions.native
 		}
 		
 		
-		public function getHierarchy(genericTarget:Object):Vector.<Object>
+		public function getHierarchy(genericObj:Object, touch:Touch):Vector.<Object>
 		{
 			var list:Vector.<Object> = new Vector.<Object>();
 			var i:uint = 0;
-			var target:DisplayObject = genericTarget as DisplayObject;
+			var target:DisplayObject = genericObj as DisplayObject;
 			while (target)
 			{
 				list[i] = target;
