@@ -28,6 +28,7 @@ package org.gestouch.gestures
 		protected var _numTouchesRequiredReached:Boolean;
 		protected var _tapCounter:uint = 0;
 		protected var _touchBeginLocations:Vector.<Point> = new Vector.<Point>();
+		protected var firstTouchTarget:Object;
 		
 		
 		public function TapGesture(target:Object = null)
@@ -102,6 +103,7 @@ package org.gestouch.gestures
 				_timer.reset();
 				_timer.delay = maxTapDuration;
 				_timer.start();
+				firstTouchTarget = touch.target;
 			}
 			
 			if (numTapsRequired > 1)
@@ -155,6 +157,7 @@ package org.gestouch.gestures
 			if (!_numTouchesRequiredReached)
 			{
 				setState(GestureState.FAILED);
+				firstTouchTarget = null;
 			}
 			else if (touchesCount == 0)
 			{
@@ -166,6 +169,11 @@ package org.gestouch.gestures
 				
 				if (_tapCounter == numTapsRequired)
 				{
+					if (numTouchesRequired == 1 && firstTouchTarget && touch.target != firstTouchTarget) {
+						firstTouchTarget = null;
+						return;
+					}
+
 					setState(GestureState.RECOGNIZED);
 				}
 				else
