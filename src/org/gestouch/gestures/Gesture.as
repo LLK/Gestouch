@@ -51,7 +51,7 @@ package org.gestouch.gestures
 		 * (not an accidental offset on touch), 
 		 * based on 20 pixels on a 252ppi device.
 		 */
-		public static var DEFAULT_SLOP:uint = Math.round(20 / 252 * flash.system.Capabilities.screenDPI);
+		public static var DEFAULT_SLOP:uint = Math.round(10 / 252 * flash.system.Capabilities.screenDPI);
 		
 		/**
 		 * If a gesture should receive a touch.
