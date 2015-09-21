@@ -176,7 +176,37 @@ package org.gestouch.core
 			const touch:Touch = _touchesMap[touchID] as Touch;
 			if (!touch)
 				return;// touch with specified ID isn't registered
-			
+
+			var target:Object;
+			var altTarget:Object;
+			var location:Point = new Point(x, y);
+			for each (var hitTester:ITouchHitTester in _hitTesters)
+			{
+				target = hitTester.hitTest(location);
+				if (target)
+				{
+					if ((target is Stage))
+					{
+						// NB! Target is flash.display::Stage is a special case. If it is true, we want
+						// to give a try to a lower-priority (Stage3D) hit-testers.
+						altTarget = target;
+						continue;
+					}
+					else
+					{
+						// We found a target.
+						break;
+					}
+				}
+			}
+			if (!target && !altTarget)
+			{
+				throw new Error("Not touch target found (hit test)." +
+				"Something is wrong, at least flash.display::Stage should be found." +
+				"See Gestouch#addTouchHitTester() and Gestouch#inputAdapter.");
+			}
+
+			touch.target = target || altTarget;
 			touch.updateLocation(x, y, getTimer());
 			
 			delete _touchesMap[touchID];

@@ -163,7 +163,7 @@ package org.gestouch.gestures
 			{
 				// reset flag for the next "full press" cycle
 				_numTouchesRequiredReached = false;
-				
+
 				_tapCounter++;
 				_timer.reset();
 				
